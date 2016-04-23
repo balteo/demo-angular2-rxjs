@@ -17,9 +17,9 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import static java.util.UUID.randomUUID;
 import static java.util.concurrent.Executors.newFixedThreadPool;
 
 @RestController
@@ -31,11 +31,11 @@ public class RxJavaSpringApplication {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(path = "interval-sse-observable", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, path = "interval-sse-observable")
     public SseEmitter tickSseObservable() {
         return RxResponse.sse(
                 Observable.interval(5, TimeUnit.SECONDS, Schedulers.io())
-                        .map(tick -> UUID.randomUUID().toString())
+                        .map(tick -> randomUUID().toString())
         );
     }
 
