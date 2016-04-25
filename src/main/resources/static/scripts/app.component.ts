@@ -1,22 +1,16 @@
-import {Component, OnInit} from 'angular2/core';
-import 'rxjs/Rx';
+import {Component} from 'angular2/core';
+import {FirstComponent} from './app.first-component.ts';
+import {SecondComponent} from './app.second-component.ts';
+import {AppService} from "./app.services.ts";
+
 
 @Component({
     selector: 'my-app',
-    template: `<h1>My second Angular 2 App</h1>
-    <ul>
-        <li *ngFor="#s of someStrings">
-           a string: {{ s }}
-        </li>
-    </ul>
-    `
+    providers: [AppService],
+    directives: [FirstComponent, SecondComponent],
+    template: `<h1>An Angular 2 App</h1>
+               <my-first></my-first>
+               <my-second></my-second>`
 })
-export class AppComponent implements OnInit {
-
-    someStrings:string[] = [];
-
-    ngOnInit() {
-        let source = new EventSource('/interval-sse-observable');
-        source.addEventListener('message', aString => this.someStrings.push(aString.data), false);
-    }
+export class AppComponent {
 }
