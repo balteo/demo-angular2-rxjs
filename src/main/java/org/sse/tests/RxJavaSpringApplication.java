@@ -35,7 +35,7 @@ public class RxJavaSpringApplication {
     public SseEmitter tickSseObservable() {
         return RxResponse.sse(
                 Observable.interval(5, TimeUnit.SECONDS, Schedulers.io())
-                        .map(tick -> new String[]{randomUUID().toString(), randomUUID().toString(), randomUUID().toString()})
+                        .map(tick -> new String[]{randomUUID().toString(), "HELLO WORLD", randomUUID().toString(), randomUUID().toString()})
         );
     }
 
