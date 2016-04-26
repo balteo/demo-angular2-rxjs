@@ -1,6 +1,5 @@
 import {Injectable} from "angular2/core";
 import {Observable} from "rxjs/Observable";
-import {Subject} from "rxjs/Subject";
 import 'rxjs/Rx';
 
 
@@ -9,12 +8,12 @@ export class AppService {
 
     constructor() {
         console.log('constructor', 'appService');
-        this.constructSomething();
+        this.constructSomeObservable();
     }
 
     someStrings:string[] = [];
 
-    constructSomething() {
+    constructSomeObservable() {
         let someObservable$:Observable < string[] > = Observable.create(observer => {
             const eventSource = new EventSource('/interval-sse-observable');
             eventSource.onmessage = x => observer.next(JSON.parse(x.data));
@@ -24,10 +23,7 @@ export class AppService {
             };
         });
 
-        let subject$ = new Subject();
-        let refCounted = someObservable$.multicast(subject$).refCount();
-
-        refCounted.subscribe(
+        someObservable$.subscribe(
             theStrings=> {
                 this.someStrings.push(...theStrings);
             },
