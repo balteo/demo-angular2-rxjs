@@ -8,7 +8,7 @@ import 'rxjs/Rx';
     template: `
 <div>
     <ul>
-        <li *ngFor="#s of appService.someStrings">
+        <li *ngFor="#s of appService.someObservable$ | async">
            a string: {{ s }}
         </li>
     </ul>

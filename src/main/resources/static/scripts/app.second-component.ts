@@ -6,7 +6,7 @@ import {AppService} from "./app.services.ts";
     template: `
 <div>
     <ul>
-        <li *ngFor="#s of appService.someStrings">
+        <li *ngFor="#s of appService.someObservable$ | async">
            a string: {{ s }}
         </li>
     </ul>

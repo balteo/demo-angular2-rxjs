@@ -11,10 +11,10 @@ export class AppService {
         this.constructSomeObservable();
     }
 
-    someStrings:string[] = [];
+    someObservable$:Observable <string[]>;
 
     constructSomeObservable() {
-        let someObservable$:Observable < string[] > = Observable.create(observer => {
+        this.someObservable$ = Observable.create(observer => {
             const eventSource = new EventSource('/interval-sse-observable');
             eventSource.onmessage = x => observer.next(JSON.parse(x.data));
             eventSource.onerror = x => observer.error(console.log('EventSource failed'));
@@ -23,9 +23,10 @@ export class AppService {
             };
         });
 
-        someObservable$.subscribe(
+        this.someObservable$.subscribe(
             theStrings=> {
-                this.someStrings.push(...theStrings);
+                console.log(theStrings);
+                this.someObservable$ = this.someObservable$.concat(Observable.from(theStrings));
             },
             error=>console.log(error)
         );
