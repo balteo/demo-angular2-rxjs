@@ -7,7 +7,7 @@ import {AppService} from "./app.services.ts";
 
 @Component({
     selector: 'my-app',
-    providers: [AppService, FirstComponent, SecondComponent],
+    providers: [AppService],
     directives: [FirstComponent, SecondComponent, ROUTER_DIRECTIVES],
     template: `<h1>An Angular 2 App</h1>
                <a [routerLink]="['First']">first-default</a> 
