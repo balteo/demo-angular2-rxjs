@@ -1,6 +1,6 @@
-import {Component, OnInit, NgZone} from "angular2/core";
+import {Component} from "angular2/core";
 import {AppService} from "./app.services.ts";
-import 'rxjs/Rx';
+import "rxjs/Rx";
 
 
 @Component({
@@ -14,26 +14,9 @@ import 'rxjs/Rx';
     </ul>
  </div>`
 })
-export class FirstComponent implements OnInit {
-
-    zone:NgZone;
+export class FirstComponent {
 
     constructor(private appService:AppService) {
         console.log('constructor', 'first');
-        this.zone = new NgZone({enableLongStackTrace: false});
-    }
-
-    // ngOnInit() {
-    //     console.log('ngOnInit', 'first');
-    //     this.appService.refCounted.subscribe(
-    //         theStrings=> {
-    //             this.zone.run(() =>this.someStrings.push(...theStrings));
-    //         },
-    //         error=>console.log(error)
-    //     );
-    // }
-
-    ngOnInit() {
-        console.log('ngOnInit', 'first');
     }
 }
