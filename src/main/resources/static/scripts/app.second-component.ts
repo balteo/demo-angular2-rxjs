@@ -1,12 +1,14 @@
 import {Component} from "angular2/core";
 import {AppService} from "./app.services.ts";
+import {Observable} from "rxjs/Rx";
+
 
 @Component({
     selector: 'my-second',
     template: `
 <div>
     <ul>
-        <li *ngFor="#s of appService.someObservable$ | async">
+        <li *ngFor="#s of someObservable$ | async">
            a string: {{ s }}
         </li>
     </ul>
@@ -14,8 +16,11 @@ import {AppService} from "./app.services.ts";
 })
 export class SecondComponent {
 
+    someObservable$:Observable <string[]>;
+
     constructor(private appService:AppService) {
         console.log('constructor', 'second');
+        this.someObservable$ = appService.someObservable$;
     }
 
 }
