@@ -8,7 +8,7 @@ import 'rxjs/Rx';
     template: `
 <div>
     <ul>
-        <li *ngFor="#s of someStrings">
+        <li *ngFor="#s of appService.someStrings">
            a string: {{ s }}
         </li>
     </ul>
@@ -23,15 +23,17 @@ export class FirstComponent implements OnInit {
         this.zone = new NgZone({enableLongStackTrace: false});
     }
 
-    someStrings:string[] = [];
+    // ngOnInit() {
+    //     console.log('ngOnInit', 'first');
+    //     this.appService.refCounted.subscribe(
+    //         theStrings=> {
+    //             this.zone.run(() =>this.someStrings.push(...theStrings));
+    //         },
+    //         error=>console.log(error)
+    //     );
+    // }
 
     ngOnInit() {
         console.log('ngOnInit', 'first');
-        this.appService.refCounted.subscribe(
-            theStrings=> {
-                this.zone.run(() =>this.someStrings.push(...theStrings));
-            },
-            error=>console.log(error)
-        );
     }
 }

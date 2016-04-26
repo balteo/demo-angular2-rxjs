@@ -6,7 +6,7 @@ import {AppService} from "./app.services.ts";
     template: `
 <div>
     <ul>
-        <li *ngFor="#s of someStrings">
+        <li *ngFor="#s of appService.someStrings">
            a string: {{ s }}
         </li>
     </ul>
@@ -21,15 +21,7 @@ export class SecondComponent implements OnInit {
         this.zone = new NgZone({enableLongStackTrace: false});
     }
 
-    someStrings:string[] = [];
-
     ngOnInit() {
         console.log('ngOnInit', 'second');
-        this.appService.refCounted.subscribe(
-            theStrings=> {
-                this.zone.run(() =>this.someStrings.push(...theStrings));
-            },
-            error=>console.log(error)
-        );
     }
 }

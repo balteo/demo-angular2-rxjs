@@ -7,34 +7,31 @@ import 'rxjs/Rx';
 @Injectable()
 export class AppService {
 
-    constructor(){
+    constructor() {
         console.log('constructor', 'appService');
+        this.constructSomething();
     }
 
-    someObservable$:Observable<string[]> = Observable.create(observer => {
-        const eventSource = new EventSource('/interval-sse-observable');
-        eventSource.onmessage = x => observer.next(JSON.parse(x.data));
-        eventSource.onerror = x => observer.error(console.log('EventSource failed'));
+    someStrings:string[] = [];
 
-        return () => {
-            eventSource.close();
-        };
-    });
-
-    subject$ = new Subject();
-
-    refCounted = this.someObservable$.multicast(this.subject$).refCount();
-
-    someMethod_() {
-        let someObservable$:Observable<string[]> = Observable.create(observer => {
+    constructSomething() {
+        let someObservable$:Observable < string[] > = Observable.create(observer => {
             const eventSource = new EventSource('/interval-sse-observable');
             eventSource.onmessage = x => observer.next(JSON.parse(x.data));
             eventSource.onerror = x => observer.error(console.log('EventSource failed'));
-
             return () => {
                 eventSource.close();
             };
         });
-        return someObservable$;
+
+        let subject$ = new Subject();
+        let refCounted = someObservable$.multicast(subject$).refCount();
+
+        refCounted.subscribe(
+            theStrings=> {
+                this.someStrings.push(...theStrings);
+            },
+            error=>console.log(error)
+        );
     }
 }
