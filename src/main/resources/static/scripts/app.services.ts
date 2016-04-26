@@ -1,10 +1,10 @@
-import {Injectable,  NgZone} from "angular2/core";
+import {Injectable, NgZone} from "angular2/core";
 import {Observable} from "rxjs/Rx";
 
 @Injectable()
 export class AppService {
 
-    constructor(private zone: NgZone) {
+    constructor(private zone:NgZone) {
         console.log('constructor', 'appService');
         this.constructSomeObservable();
     }
