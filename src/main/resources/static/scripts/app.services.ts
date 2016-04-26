@@ -1,7 +1,5 @@
 import {Injectable} from "angular2/core";
 import {Observable} from "rxjs/Rx";
-//import 'rxjs/Rx';
-
 
 @Injectable()
 export class AppService {
