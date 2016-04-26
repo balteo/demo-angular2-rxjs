@@ -1,10 +1,10 @@
-import {Injectable} from "angular2/core";
+import {Injectable,  NgZone} from "angular2/core";
 import {Observable} from "rxjs/Rx";
 
 @Injectable()
 export class AppService {
 
-    constructor() {
+    constructor(private zone: NgZone) {
         console.log('constructor', 'appService');
         this.constructSomeObservable();
     }
@@ -14,7 +14,7 @@ export class AppService {
     constructSomeObservable() {
         this.someObservable$ = Observable.create(observer => {
                 const eventSource = new EventSource('/interval-sse-observable');
-                eventSource.onmessage = x => observer.next(JSON.parse(x.data));
+                eventSource.onmessage = x => this.zone.run(() =>observer.next(JSON.parse(x.data)));
                 eventSource.onerror = x => observer.error(console.log('EventSource failed'));
                 return () => {
                     eventSource.close();
