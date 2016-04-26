@@ -1,6 +1,7 @@
 import {Component, OnInit, NgZone} from "angular2/core";
 import {AppService} from "./app.services.ts";
 import 'rxjs/Rx';
+import {CanReuse, ComponentInstruction} from "angular2/router";
 
 
 @Component({
@@ -33,5 +34,9 @@ export class FirstComponent implements OnInit {
             },
             error=>console.log(error)
         );
+    }
+
+    routerCanReuse(next:ComponentInstruction, prev:ComponentInstruction) {
+        return true;
     }
 }

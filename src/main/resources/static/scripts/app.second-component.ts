@@ -1,5 +1,6 @@
 import {Component, OnInit, NgZone} from "angular2/core";
 import {AppService} from "./app.services.ts";
+import {CanReuse, ComponentInstruction} from "angular2/router";
 
 @Component({
     selector: 'my-second',
@@ -12,7 +13,7 @@ import {AppService} from "./app.services.ts";
     </ul>
  </div>`
 })
-export class SecondComponent implements OnInit {
+export class SecondComponent implements OnInit, CanReuse {
 
     zone:NgZone;
 
@@ -31,5 +32,9 @@ export class SecondComponent implements OnInit {
             },
             error=>console.log(error)
         );
+    }
+
+    routerCanReuse(next:ComponentInstruction, prev:ComponentInstruction) {
+        return true;
     }
 }
