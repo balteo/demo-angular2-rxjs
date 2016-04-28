@@ -1,4 +1,4 @@
-import {Component} from "angular2/core";
+import {Component, OnInit} from "angular2/core";
 import {AppService} from "./app.services.ts";
 import {Observable} from "rxjs/Rx";
 
@@ -14,12 +14,16 @@ import {Observable} from "rxjs/Rx";
     </ul>
  </div>`
 })
-export class FirstComponent {
+export class FirstComponent implements OnInit {
 
     someObservable$:Observable <string[]>;
 
     constructor(private appService:AppService) {
         console.log('constructor', 'first');
-        this.someObservable$ = appService.someObservable$;
     }
+
+    ngOnInit() {
+        this.someObservable$ = this.appService.someObservable$;
+    }
+
 }
